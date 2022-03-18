@@ -1,0 +1,9 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "../dist/extension",
+        "sourceMap": true,
+        "noUnusedLocals": false,
+        "strictNullChecks": false
+    }
+}

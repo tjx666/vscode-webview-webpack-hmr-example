@@ -1,0 +1,61 @@
+{
+    "name": "vscode-webview-webpack-hmr-example",
+    "displayName": "vscode-webview-webpack-hmr-example",
+    "description": "",
+    "version": "0.0.1",
+    "main": "./dist/extension/extension.js",
+    "engines": {
+        "vscode": "^1.65.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:vscode-webview-webpack-hmr-example.openWebview"
+    ],
+    "contributes": {
+        "commands": [
+            {
+                "command": "vscode-webview-webpack-hmr-example.openWebview",
+                "title": "Open Webview For Test Webpack HMR"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile-ext",
+        "compile-ext": "tsc -p ./src/tsconfig.json",
+        "watch-ext": "tsc -watch -p ./src/tsconfig.json",
+        "start-web": "node ./scripts/start.js"
+    },
+    "dependencies": {
+        "react": "17.0.2",
+        "react-dom": "17.0.2"
+    },
+    "devDependencies": {
+        "@babel/core": "7.17.7",
+        "@babel/plugin-transform-runtime": "7.17.0",
+        "@babel/preset-env": "7.16.11",
+        "@babel/preset-react": "7.16.7",
+        "@babel/preset-typescript": "7.16.7",
+        "@babel/runtime": "7.17.7",
+        "@pmmmwh/react-refresh-webpack-plugin": "0.5.4",
+        "@types/glob": "^7.2.0",
+        "@types/mocha": "^9.1.0",
+        "@types/node": "17.0.21",
+        "@types/react": "17.0.40",
+        "@types/react-dom": "17.0.13",
+        "@types/vscode": "1.65.0",
+        "@typescript-eslint/eslint-plugin": "^5.12.1",
+        "@typescript-eslint/parser": "^5.12.1",
+        "babel-loader": "8.2.3",
+        "core-js": "3.21.1",
+        "eslint": "^8.9.0",
+        "glob": "^7.2.0",
+        "html-webpack-plugin": "5.5.0",
+        "mocha": "^9.2.1",
+        "react-refresh": "0.11.0",
+        "typescript": "4.6.2",
+        "webpack": "5.70.0",
+        "webpack-dev-server": "4.7.4"
+    }
+}
