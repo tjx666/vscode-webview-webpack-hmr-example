@@ -15,6 +15,10 @@ function start() {
         devMiddleware: {
             stats: 'minimal',
         },
+        allowedHosts: 'all',
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
     };
     const server = new WebpackDevServer(devServerOptions, compiler);
     server.start();

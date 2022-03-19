@@ -3,15 +3,33 @@ const { HotModuleReplacementPlugin } = require('webpack');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const devServerClientOptions = {
+    hot: true,
+    // !: 指定构造 WebSocket 的协议是 ws
+    protocol: 'ws',
+    hostname: 'localhost',
+    port: 3000,
+    path: 'ws',
+};
+const devServerClientQuery = Object.entries(devServerClientOptions)
+    .map(([k, v]) => `${k}=${v}`)
+    .join('&');
+    
+const webpackHotDevServer = resolve(__dirname, './webpack-hot-dev-server.js');
+const devEntries = [
+    webpackHotDevServer,
+    `webpack-dev-server/client/index.js?${devServerClientQuery}`,
+];
+
 /**@type {import('webpack').Configuration}*/
 module.exports = {
     mode: 'development',
     entry: [
-        // 'webpack/hot/dev-server.js',
-        // 'webpack-dev-server/client/index.js?hot=true',
+        ...devEntries,
         resolve(__dirname, '../web/index.tsx'),
     ],
     output: {
+        publicPath: 'http://localhost:3000/',
         path: resolve(__dirname, '../dist/web'),
         filename: 'webview.js',
     },
@@ -42,10 +60,7 @@ module.exports = {
     },
     devtool: 'eval-source-map',
     plugins: [
-        new HtmlWebpackPlugin({
-            template: resolve(__dirname, '../web/index.html'),
-        }),
-        // new HotModuleReplacementPlugin(),
-        // new ReactRefreshWebpackPlugin(),
+        new HotModuleReplacementPlugin(),
+        new ReactRefreshWebpackPlugin(),
     ],
 };

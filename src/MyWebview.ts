@@ -36,6 +36,20 @@ export default class MyWebview {
         this.setupHtmlForWebview();
 
         this.panel.onDidDispose(() => this.dispose(), null, this.disposables);
+
+        this.panel.webview.onDidReceiveMessage(
+            (message) => {
+                switch (message.command) {
+                    case 'reload':
+                        // 需要修改 html 内容才会 relaod，所以每次都替换了 script 的 nonce 为一个随机字符串
+                        this.html = this.html.replace(/nonce="\w+?"/, `nonce="${getNonce()}"`);
+                        this.panel.webview.html = this.html;
+                        return;
+                }
+            },
+            null,
+            this.disposables,
+        );
     }
 
     private setupHtmlForWebview() {
@@ -44,7 +58,7 @@ export default class MyWebview {
         const localServerUrl = `localhost:${localPort}`;
         const scriptRelativePath = 'webview.js';
         const scriptUri = `http://${localServerUrl}/${scriptRelativePath}`;
-        const nonce = getNonce()
+        const nonce = getNonce();
 
         this.html = `<!DOCTYPE html>
 <html lang="en">
