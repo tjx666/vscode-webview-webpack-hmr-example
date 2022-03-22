@@ -41,9 +41,13 @@ export default class MyWebview {
             (message) => {
                 switch (message.command) {
                     case 'reload':
+                        // 方法一：
                         // 需要修改 html 内容才会 relaod，所以每次都替换了 script 的 nonce 为一个随机字符串
                         this.html = this.html.replace(/nonce="\w+?"/, `nonce="${getNonce()}"`);
                         this.panel.webview.html = this.html;
+                        // 方法二：注意使用这个命令会刷新所有打开的 webview
+                        // vscode.commands.executeCommand('workbench.action.webview.reloadWebviewAction');
+                        // https://stackoverflow.com/questions/38634125/how-to-refresh-images-in-html-preview
                         return;
                 }
             },
